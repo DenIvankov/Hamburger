@@ -107,11 +107,8 @@ export function PromoBanner() {
                 <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-black/70 via-black/35 to-transparent" />
 
                 <div className="absolute inset-x-0 top-0 z-20">
-                  <div className="backdrop-blur-md bg-white/25 border-b border-white/20">
-                    <div
-                      className="mx-auto flex max-w-[420px] items-center justify-between px-4"
-                      style={{ paddingTop: "env(safe-area-inset-top)" }}
-                    >
+                  <div className="backdrop-blur-md bg-white/25 border-b border-white/20 pt-[env(safe-area-inset-top)]">
+                    <div className="mx-auto flex max-w-[420px] items-center justify-between px-4">
                       <div className="py-3 text-sm leading-snug text-white/90">
                         Южно-Сахалинск
                         <br />
