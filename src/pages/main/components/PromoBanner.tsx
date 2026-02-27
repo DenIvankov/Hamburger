@@ -106,40 +106,42 @@ export function PromoBanner() {
                 <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-black/70 via-black/35 to-transparent" />
 
-                <div
-                  className="relative z-10 h-full px-5 pb-8"
-                  style={{ paddingTop: "env(safe-area-inset-top)" }}
-                >
-                  <div className="flex items-start justify-between pt-4">
-                    <div className="flex flex-col gap-2">
-                      <div className="text-sm leading-snug opacity-95">
-                        Южно-Гомельск
+                <div className="absolute inset-x-0 top-0 z-20">
+                  <div className="backdrop-blur-md bg-white/25 border-b border-white/20">
+                    <div
+                      className="mx-auto flex max-w-[420px] items-center justify-between px-4"
+                      style={{ paddingTop: "env(safe-area-inset-top)" }}
+                    >
+                      <div className="py-3 text-sm leading-snug text-white/90">
+                        Южно-Сахалинск
                         <br />
-                        проспект Андрея, 8
+                        проспект Гагарина, 12
                       </div>
-                      <div className="mt-2 inline-flex items-center gap-2 rounded-full border border-white/60 px-3 py-1 text-xs backdrop-blur">
-                        <span className="inline-flex h-4 w-4 items-center justify-center rounded-full border border-white/70 text-[10px]">
-                          i
-                        </span>
-                        Реклама
+                      <div className="flex items-center gap-3 text-black py-2">
+                        <button
+                          onClick={() => console.log("rger")}
+                          className="grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-full p-0 bg-white/95 shadow-sm border border-white/90 text-black transition active:bg-white/85 active:shadow-inner transform-gpu origin-center active:scale-95"
+                          aria-label="Notifications"
+                        >
+                          <IconBell size={18} stroke={1.6} />
+                        </button>
+                        <button
+                          className="grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-full bg-white/95 backdrop-blur-md shadow-sm border border-white/70 transition active:bg-white/70 active:shadow-inner transform-gpu origin-center active:scale-95"
+                          aria-label="Profile"
+                        >
+                          <IconUser size={18} stroke={1.6} />
+                        </button>
                       </div>
                     </div>
+                  </div>
+                </div>
 
-                    <div className="flex items-center gap-3 text-black">
-                      <button
-                        onClick={() => console.log("rger")}
-                        className="grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-full p-0 bg-white/95 shadow-sm border border-white/90 text-black transition active:bg-white/85 active:shadow-inner transform-gpu origin-center active:scale-95"
-                        aria-label="Notifications"
-                      >
-                        <IconBell size={18} stroke={1.6} />
-                      </button>
-                      <button
-                        className="grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-full bg-white/95 backdrop-blur-md shadow-sm border border-white/70 transition active:bg-white/70 active:shadow-inner transform-gpu origin-center active:scale-95"
-                        aria-label="Profile"
-                      >
-                        <IconUser size={18} stroke={1.6} />
-                      </button>
-                    </div>
+                <div className="relative z-10 h-full px-5 pb-8 pt-20">
+                  <div className="mt-2 inline-flex items-center gap-2 rounded-full border border-white/60 px-3 py-1 text-xs backdrop-blur">
+                    <span className="inline-flex h-4 w-4 items-center justify-center rounded-full border border-white/70 text-[10px]">
+                      i
+                    </span>
+                    Реклама
                   </div>
 
                   <div className="absolute inset-x-5 bottom-14">
