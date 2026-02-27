@@ -1,0 +1,29 @@
+import axios from "axios"
+import { hamburgerStore } from "../app/hamburgerStore"
+
+export const axiosInstance = axios.create({
+    baseURL: "https://delivery-app-api.sakhdev.ru/"
+})
+
+axiosInstance.interceptors.request.use((config) => {
+    const token = hamburgerStore.getState().accessToken
+
+    if (token) {
+        config.headers = config.headers || {}
+        config.headers.Authorization = `Bearer ${token}`
+    }
+
+    return config
+})
+axiosInstance.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response?.status === 401) {
+            // если сервер вернул 401 — разлогиниваем пользователя
+            console.log("Логаут")
+            // authStore.getState().logout()
+        }
+
+        return Promise.reject(error)
+    }
+)
