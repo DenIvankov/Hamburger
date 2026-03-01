@@ -8,7 +8,12 @@ export const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use((config) => {
     const token = hamburgerStore.getState().accessToken
 
-    if (token) {
+    // добавляем token ТОЛЬКО для защищённых API
+    const needAuth =
+        config.url?.includes("/dispatcher") ||
+        config.url?.includes("/customer")
+
+    if (token && needAuth) {
         config.headers = config.headers || {}
         config.headers.Authorization = `Bearer ${token}`
     }

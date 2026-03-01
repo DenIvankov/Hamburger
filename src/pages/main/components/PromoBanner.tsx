@@ -64,7 +64,7 @@ export function PromoBanner() {
   if (banners.length === 0) {
     return null;
   }
-  console.log(banners);
+
   return (
     <Carousel
       className="relative w-full z-0"
