@@ -1,5 +1,6 @@
 ﻿import Banner from "./components/Banner";
 import { Categories } from "./components/Categories";
+import PopularDishes from "./components/PopularDishes";
 import { PromoBanner } from "./components/PromoBanner";
 import { RestaurantsSection } from "./components/RestaurantsSection";
 import { RestaurantsSectioncopy } from "./components/RestaurantsSectioncopy";
@@ -21,6 +22,7 @@ function MainPage() {
         <RestaurantsSection />
         <Banner />
         <Sale />
+        <PopularDishes />
         <RestaurantsSectioncopy />
       </div>
     </div>

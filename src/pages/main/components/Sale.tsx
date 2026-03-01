@@ -39,7 +39,7 @@ function Sale() {
         <p className="text-sm opacity-80">Продукты</p>
         <h2 className="text-2xl font-semibold mb-4">Распродажа</h2>
 
-        <Carousel opts={{ align: "start", dragFree: true }}>
+        <Carousel opts={{ align: "start", loop: true, dragFree: true }}>
           <CarouselContent className="-ml-3">
             {sale.map((product) => {
               const listing = product.listings?.[0];
@@ -56,6 +56,9 @@ function Sale() {
                         src={product.image?.url ?? "/product.png"}
                         alt={product.name}
                         className="h-full object-contain"
+                        onError={(e) => {
+                          e.currentTarget.src = "/dish_placeholder.svg";
+                        }}
                       />
 
                       <button className="absolute top-2 right-2 bg-white rounded-full p-1 shadow">

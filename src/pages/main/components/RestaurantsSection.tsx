@@ -37,8 +37,8 @@ export function RestaurantsSection() {
   return (
     <section>
       <div className="rounded-[28px] bg-white p-6 mt-3 shadow-sm">
-        <p className="text-xs text-gray-500 px-4">Рестораны</p>
-        <h2 className="text-xl font-bold px-4 mb-4">Рядом с вами</h2>
+        <p className="text-sm opacity-80">Рестораны</p>
+        <h2 className="text-2xl font-semibold mb-4">Рядом с вами</h2>
 
         <Carousel
           opts={{
