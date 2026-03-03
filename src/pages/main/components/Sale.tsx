@@ -4,27 +4,25 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import { Heart, Plus } from "lucide-react";
-import {
-  useProductControllerFindAdditionalbyVendor,
-  type Product,
-} from "@/api/generated";
+
+import { useNearestVendoruseNearestVendor } from "@/api/hooks/useNearestVendor";
+import type { Product } from "@/api/generated";
 
 function Sale() {
-  const vendorId = 1;
+  const { products, isLoading, error } = useNearestVendoruseNearestVendor();
 
-  const { data, isLoading, error } = useProductControllerFindAdditionalbyVendor(
-    vendorId,
-    { page: 1, limit: 20 },
-  );
+  const sale = (products?.data?.data as Product[]) ?? [];
 
-  const sale = (data?.data?.data as Product[]) ?? [];
+  const saleModified = [...sale, ...sale];
 
   if (isLoading) {
     return (
       <section className="mt-3">
         <div className="rounded-[28px] bg-green-600 p-6 text-white">
-          <p className="text-sm opacity-80">Продукты</p>
-          <h2 className="text-2xl font-semibold mb-4">Распродажа</h2>
+          <p className="text-md text-gray-500 font-semibold  opacity-80">
+            Продукты
+          </p>
+          <h2 className="text-2xl font-bold mb-4">Распродажа</h2>
           <p>Загрузка...</p>
         </div>
       </section>
@@ -35,48 +33,48 @@ function Sale() {
 
   return (
     <section className="mt-3">
-      <div className="rounded-[28px] bg-green-600 p-6 text-white">
-        <p className="text-sm opacity-80">Продукты</p>
-        <h2 className="text-2xl font-semibold mb-4">Распродажа</h2>
+      <div className="rounded-[28px] bg-green-600 p-5 pr-0 text-white">
+        <p className="text-md opacity-80 -mt-2 mb-1">Продукты</p>
+        <h2 className="text-2xl font-bold mb-5 tracking-normal">Распродажа</h2>
 
         <Carousel opts={{ align: "start", loop: true, dragFree: true }}>
-          <CarouselContent className="-ml-3">
-            {sale.map((product) => {
+          <CarouselContent className="-ml-2">
+            {saleModified.map((product) => {
               const listing = product.listings?.[0];
 
               const price = listing?.discount_price ?? listing?.price;
               const oldPrice = listing?.discount_price ? listing.price : null;
 
               return (
-                <CarouselItem key={product.id} className="pl-3 basis-[160px]">
-                  <div className="bg-white rounded-2xl p-3 text-black h-[230px] flex flex-col">
+                <CarouselItem key={product.id} className="pl-2 basis-[154px]">
+                  <div className="bg-white rounded-4xl p-1 text-black h-[248px] flex flex-col">
                     {/* IMAGE */}
-                    <div className="relative bg-gray-100 rounded-xl h-28 flex items-center justify-center">
+                    <div className="relative bg-gray-100 rounded-xl h-34 flex items-center justify-center p-1">
                       <img
                         src={product.image?.url ?? "/product.png"}
                         alt={product.name}
-                        className="h-full object-contain"
+                        className="h-full object-contain "
                         onError={(e) => {
                           e.currentTarget.src = "/dish_placeholder.svg";
                         }}
                       />
 
-                      <button className="absolute top-2 right-2 bg-white rounded-full p-1 shadow">
-                        <Heart size={14} />
+                      <button className="absolute top-2 right-2 bg-taupe-300 rounded-full p-2 shadow">
+                        <Heart className="text-white " size={14} />
                       </button>
 
-                      <button className="absolute bottom-2 right-2 bg-gray-100 rounded-full p-2 shadow">
-                        <Plus size={16} />
+                      <button className="absolute bottom-3 right-2 bg-white rounded-full p-2.5 shadow-lg">
+                        <Plus size={22} />
                       </button>
                     </div>
 
                     {/* PRICE */}
-                    <div className="mt-2">
+                    <div className="px-1">
                       <div className="flex items-center gap-2">
-                        <span className="font-semibold">{price} ₽</span>
+                        <span className="text-xl font-semibold">{price} ₽</span>
 
                         {oldPrice && (
-                          <span className="text-sm text-gray-400 line-through">
+                          <span className="text-sm text-gray-400 line-through decoration-red-500">
                             {oldPrice} ₽
                           </span>
                         )}
@@ -87,7 +85,7 @@ function Sale() {
                       </p>
 
                       {product.weight && (
-                        <p className="text-xs text-gray-400 mt-1">
+                        <p className="text-md text-gray-400 mt-1">
                           {product.weight} г
                         </p>
                       )}

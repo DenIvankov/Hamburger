@@ -31,13 +31,18 @@ function Banner() {
 
   return (
     <section>
-      <div className="rounded-[28px] bg-white p-6 mt-3 shadow-sm">
-        <Carousel>
-          <CarouselContent className="-ml-4">
+      <div className="rounded-[28px] bg-white pl-5 mt-3 shadow-sm">
+        <Carousel
+          opts={{
+            align: "start",
+            loop: true,
+          }}
+        >
+          <CarouselContent className="-ml-2 pl-5 ">
             {banners.map((r) => (
               <CarouselItem
                 key={r.id}
-                className="pl-4 basis-[85%] sm:basis-[60%]"
+                className="pl-2 basis-[100%] sm:basis-[60%]"
               >
                 <div className="aspect-[16/9] w-full overflow-hidden rounded-2xl">
                   <img

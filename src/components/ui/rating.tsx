@@ -39,7 +39,7 @@ export function Rating({
       >
         <Star
           style={{ width: pixelSize, height: pixelSize }}
-          className="fill-yellow-400 text-yellow-400"
+          className="fill-yellow-500 text-yellow-400"
         />
       </div>
     </div>

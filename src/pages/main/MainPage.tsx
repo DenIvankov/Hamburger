@@ -1,8 +1,10 @@
 ﻿import Banner from "./components/Banner";
+import Cameras from "./components/Cameras";
 import { Categories } from "./components/Categories";
 import PopularDishes from "./components/PopularDishes";
 import { PromoBanner } from "./components/PromoBanner";
 import { RestaurantsSection } from "./components/RestaurantsSection";
+
 import { RestaurantsSectioncopy } from "./components/RestaurantsSectioncopy";
 import Sale from "./components/Sale";
 import { SearchBlock } from "./components/SearchBlock";
@@ -23,6 +25,7 @@ function MainPage() {
         <Banner />
         <Sale />
         <PopularDishes />
+        <Cameras />
         <RestaurantsSectioncopy />
       </div>
     </div>
