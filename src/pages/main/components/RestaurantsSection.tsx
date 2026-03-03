@@ -1,6 +1,5 @@
 ﻿import {
   type Vendor,
-  type VendorUserControllerFindFiltersQueryResult,
   useVendorUserControllerFindFilters,
 } from "@/api/generated";
 import {
