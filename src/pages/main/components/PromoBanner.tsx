@@ -11,6 +11,13 @@ import {
 } from "@/components/ui/carousel";
 import { IconBell, IconUser } from "@tabler/icons-react";
 
+/* ================= UTILS ================= */
+
+const clamp = (value: number, min: number, max: number) =>
+  Math.min(Math.max(value, min), max);
+
+const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+
 const isVideoType = (type?: string | null) => {
   const mediaType = type?.toLowerCase();
   return mediaType === "video" || mediaType === "mp4" || mediaType === "webm";
@@ -35,9 +42,46 @@ export function PromoBanner() {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const [api, setApi] = useState<CarouselApi | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const scrollProgress = useRef(0);
+  const [, forceUpdate] = useState({});
 
-  // хранит ошибки загрузки media
   const [failedMedia, setFailedMedia] = useState<Record<number, boolean>>({});
+
+  /* ================= SCROLL ENGINE ================= */
+
+  useEffect(() => {
+    let ticking = false;
+
+    const update = () => {
+      const raw = clamp(window.scrollY / 420, 0, 1);
+      scrollProgress.current = easeOutCubic(raw);
+      forceUpdate({});
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    update();
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  /* ================= SCROLL EFFECT VALUES ================= */
+
+  const blurValue = scrollProgress.current * 6;
+  const scaleValue = 1 + scrollProgress.current * 0.08;
+  const overlayOpacity = scrollProgress.current * 0.5;
+  const vignetteOpacity = scrollProgress.current * 0.8;
+  const contentTranslate = scrollProgress.current * -10;
+  const headerTranslate = scrollProgress.current * -5;
+
+  /* ================= DATA ================= */
 
   const banners = useMemo<AdsHeroBanner[]>(() => {
     const bannersData = data?.data as unknown;
@@ -91,7 +135,7 @@ export function PromoBanner() {
   /* ================= LOADING ================= */
 
   if (isLoading) {
-    return <div className="h-72 bg-gray-200 animate-pulse rounded-lg" />;
+    return <div className="h-72 bg-gray-200 rounded-lg" />;
   }
 
   if (banners.length === 0) {
@@ -103,18 +147,19 @@ export function PromoBanner() {
   return (
     <Carousel
       className="relative w-full z-0"
-      opts={{ align: "start", loop: true }}
+      opts={{ align: "center", loop: true }}
       setApi={setApi}
     >
-      <CarouselContent>
+      {/* Убрали отступы */}
+      <CarouselContent className="ml-0">
         {banners.map((banner, index) => {
           const isVideo = isVideoType(banner.media?.type);
           const hasError = failedMedia[index] || !banner.media?.url;
 
           return (
-            <CarouselItem key={banner.id || index}>
+            <CarouselItem key={banner.id || index} className="pl-0 basis-full">
               <div className="relative h-[70vh] max-h-[460px] min-h-[360px] w-full overflow-hidden text-white">
-                {/* ========= MEDIA ========= */}
+                {/* MEDIA */}
 
                 {hasError ? (
                   <BannerFallback />
@@ -130,12 +175,16 @@ export function PromoBanner() {
                     playsInline
                     preload="metadata"
                     onError={() =>
-                      setFailedMedia((p) => ({
-                        ...p,
-                        [index]: true,
-                      }))
+                      setFailedMedia((p) => ({ ...p, [index]: true }))
                     }
-                    className="absolute inset-0 h-full w-full object-cover"
+                    style={{
+                      filter: `blur(${blurValue}px)`,
+                      transform: `scale(${scaleValue})`,
+                      transition:
+                        "filter 0.25s cubic-bezier(.22,.61,.36,1), transform 0.25s cubic-bezier(.22,.61,.36,1)",
+                      willChange: "transform, filter",
+                    }}
+                    className="absolute inset-0 h-full w-full object-cover object-center"
                   />
                 ) : (
                   <img
@@ -144,34 +193,60 @@ export function PromoBanner() {
                     loading="lazy"
                     decoding="async"
                     onError={() =>
-                      setFailedMedia((p) => ({
-                        ...p,
-                        [index]: true,
-                      }))
+                      setFailedMedia((p) => ({ ...p, [index]: true }))
                     }
-                    className="absolute inset-0 h-full w-full object-cover"
+                    style={{
+                      filter: `blur(${blurValue}px)`,
+                      transform: `scale(${scaleValue})`,
+                      transition:
+                        "filter 0.25s cubic-bezier(.22,.61,.36,1), transform 0.25s cubic-bezier(.22,.61,.36,1)",
+                      willChange: "transform, filter",
+                    }}
+                    className="absolute inset-0 h-full w-full object-cover object-center"
                   />
                 )}
 
-                {/* ========= OVERLAYS ========= */}
+                {/* OVERLAY */}
 
-                <div className="absolute inset-0 bg-black/20" />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-black/70 via-black/35 to-transparent" />
+                <div
+                  className="absolute inset-0 bg-black pointer-events-none"
+                  style={{
+                    opacity: overlayOpacity,
+                    transition: "opacity 0.25s ease-out",
+                  }}
+                />
 
-                {/* ========= HEADER ========= */}
+                {/* VIGNETTE */}
 
-                <div className="absolute inset-x-0 top-0 z-20">
-                  <div className="backdrop-blur-xs  border-b border-white/20 pt-[env(safe-area-inset-top)]">
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background:
+                      "radial-gradient(ellipse at center, rgba(0,0,0,0) 40%, rgba(0,0,0,0.6) 100%)",
+                    opacity: vignetteOpacity,
+                    transition: "opacity 0.3s ease-out",
+                  }}
+                />
+
+                {/* HEADER */}
+
+                <div
+                  className="absolute inset-x-0 top-0 z-20"
+                  style={{
+                    transform: `translateY(${headerTranslate}px)`,
+                    transition: "transform 0.25s ease-out",
+                  }}
+                >
+                  <div className="backdrop-blur-md border-b border-white/20 pt-[env(safe-area-inset-top)] bg-white/5">
                     <div className="mx-auto flex max-w-[420px] items-center justify-between px-4">
-                      <div className="py-3 text-sm text-white/90">
+                      <div className="px-4 py-3 text-sm text-white/90">
                         Южно-Сахалинск
                         <br />
                         проспект Гагарина, 12
                       </div>
 
                       <div className="flex items-center gap-3 py-2">
-                        <button className="grid h-10 w-10 place-items-center rounded-full bg-white/95 shadow-sm border border-white/90 active:scale-95 transition">
+                        <button className="grid h-10 w-10 place-items-center rounded-full bg-white/95 shadow-md border border-white/80 active:scale-95 transition">
                           <IconBell
                             size={18}
                             stroke={1.6}
@@ -179,7 +254,7 @@ export function PromoBanner() {
                           />
                         </button>
 
-                        <button className="grid h-10 w-10 place-items-center rounded-full bg-white/95 shadow-sm border border-white/70 active:scale-95 transition">
+                        <button className="grid h-10 w-10 place-items-center rounded-full bg-white/95 shadow-md border border-white/80 active:scale-95 transition">
                           <IconUser
                             size={18}
                             stroke={1.6}
@@ -191,10 +266,16 @@ export function PromoBanner() {
                   </div>
                 </div>
 
-                {/* ========= CONTENT ========= */}
+                {/* CONTENT */}
 
-                <div className="relative z-10 h-full px-5 pb-8 pt-20">
-                  <div className="mt-2 inline-flex items-center gap-2 rounded-full border border-white/60 px-3 py-1 text-xs backdrop-blur">
+                <div
+                  className="relative z-10 h-full px-5 pb-8 pt-24"
+                  style={{
+                    transform: `translateY(${contentTranslate}px)`,
+                    transition: "transform 0.25s ease-out",
+                  }}
+                >
+                  <div className="inline-flex items-center gap-2 rounded-full border border-white/60 px-3 py-1 text-xs backdrop-blur-md bg-white/10">
                     <span className="inline-flex h-4 w-4 items-center justify-center rounded-full border border-white/70 text-[10px]">
                       i
                     </span>
@@ -202,7 +283,7 @@ export function PromoBanner() {
                   </div>
 
                   <div className="absolute inset-x-5 bottom-14">
-                    <h2 className="text-lg font-semibold leading-snug">
+                    <h2 className="text-lg font-semibold leading-snug drop-shadow-md">
                       {banner.vendor?.general_info?.name}
                       <span className="ml-2">›</span>
                     </h2>
@@ -214,7 +295,7 @@ export function PromoBanner() {
         })}
       </CarouselContent>
 
-      {/* ========= DOTS ========= */}
+      {/* DOTS */}
 
       <div className="absolute bottom-10 left-1/2 z-20 flex -translate-x-1/2 gap-1">
         {banners.map((_, i) => {
@@ -222,8 +303,8 @@ export function PromoBanner() {
           return (
             <div
               key={i}
-              className={`h-1.5 rounded-full transition-all ${
-                active ? "w-5 bg-white" : "w-2.5 bg-white/60"
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                active ? "w-6 bg-white" : "w-2.5 bg-white/60"
               }`}
             />
           );

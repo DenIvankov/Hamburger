@@ -10,7 +10,7 @@ function Banner() {
   if (isLoading) {
     return (
       <section>
-        <div className="rounded-[28px] bg-white p-6 mt-3 shadow-sm">
+        <div className="rounded-[28px] bg-white p-5 mt-3 shadow-sm">
           <div className="aspect-[16/9] w-full rounded-2xl bg-gray-200 animate-pulse" />
         </div>
       </section>

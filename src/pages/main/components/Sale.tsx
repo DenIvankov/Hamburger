@@ -17,7 +17,7 @@ function Sale() {
 
   if (isLoading) {
     return (
-      <section className="mt-3">
+      <section id="products" className="mt-3">
         <div className="rounded-[28px] bg-green-600 p-6 text-white">
           <p className="text-md text-gray-500 font-semibold  opacity-80">
             Продукты

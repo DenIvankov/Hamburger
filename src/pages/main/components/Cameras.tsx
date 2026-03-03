@@ -1,19 +1,21 @@
 import { useState } from "react";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { motion, AnimatePresence } from "framer-motion";
 
 /* ================= DATA ================= */
 
 const cams = [
   {
-    id: "panda",
-    title: "🐼 Panda Live Cam",
+    id: "gorilla",
+    title: "🦍 Gorilla Live Cam",
     type: "youtube",
     url: "https://www.youtube.com/embed/yfSyjwY6zSQ",
     thumbnail: "https://img.youtube.com/vi/yfSyjwY6zSQ/hqdefault.jpg",
   },
   {
-    id: "gorilla",
-    title: "🦍 Gorilla Live Cam",
+    id: "panda",
+    title: "🐼 Panda Live Cam",
+
     type: "youtube",
     url: "https://www.youtube.com/embed/3szkFHfr6sA",
     thumbnail: "https://img.youtube.com/vi/3szkFHfr6sA/hqdefault.jpg",
@@ -33,8 +35,8 @@ export default function Cameras() {
   const [activeCam, setActiveCam] = useState<(typeof cams)[0] | null>(null);
 
   return (
-    <section>
-      <div className="rounded-[28px] bg-white p-4 mt-3 shadow-sm">
+    <section id="cameras">
+      <div className="rounded-[28px] bg-white p-5 mt-3  shadow-sm">
         <p className="text-md text-gray-500 font-semibold opacity-80">Камеры</p>
         <h2 className="text-2xl font-bold mb-4">Live Wildlife</h2>
 
@@ -61,41 +63,63 @@ export default function Cameras() {
         </ScrollArea>
       </div>
 
-      {activeCam && (
-        <>
-          <div
-            onClick={() => setActiveCam(null)}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
-          />
+      <AnimatePresence>
+        {activeCam && (
+          <>
+            {/* Overlay */}
+            <motion.div
+              onClick={() => setActiveCam(null)}
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            />
 
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            <div className="bg-white rounded-2xl w-full max-w-4xl overflow-hidden shadow-xl">
-              <div className="bg-black w-full h-[250px] sm:h-[500px]">
-                {activeCam.type === "youtube" && (
-                  <iframe
-                    src={`${activeCam.url}?autoplay=1&mute=1`}
-                    className="w-full h-full"
-                    allow="autoplay; encrypted-media"
-                    allowFullScreen
-                  />
-                )}
-              </div>
+            {/* Modal */}
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{
+                  opacity: 0,
+                  scale: 0.7,
+                  filter: "blur(20px)",
+                  rotateX: 15,
+                }}
+                transition={{
+                  duration: 0.3,
+                  ease: "easeOut",
+                }}
+                className="bg-white rounded-2xl w-full max-w-4xl overflow-hidden shadow-xl"
+              >
+                <div className="bg-black w-full h-[250px] sm:h-[500px]">
+                  {activeCam.type === "youtube" && (
+                    <iframe
+                      src={`${activeCam.url}?autoplay=1&mute=1`}
+                      className="w-full h-full"
+                      allow="autoplay; encrypted-media"
+                      allowFullScreen
+                    />
+                  )}
+                </div>
 
-              <div className="p-4 flex justify-between bg-black items-center">
-                <h3 className="font-bold text-lg text-white">
-                  {activeCam.title}
-                </h3>
-                <button
-                  onClick={() => setActiveCam(null)}
-                  className="px-6 py-2 bg-black !text-white rounded-xl"
-                >
-                  Закрыть
-                </button>
-              </div>
+                <div className="p-4 flex justify-between bg-black items-center">
+                  <h3 className="font-bold text-lg text-white">
+                    {activeCam.title}
+                  </h3>
+                  <button
+                    onClick={() => setActiveCam(null)}
+                    className="px-6 py-2 bg-black !text-white rounded-xl"
+                  >
+                    Закрыть
+                  </button>
+                </div>
+              </motion.div>
             </div>
-          </div>
-        </>
-      )}
+          </>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

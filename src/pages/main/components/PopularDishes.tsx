@@ -18,7 +18,7 @@ function PopularDishes() {
   if (error) return <div>Ошибка</div>;
   return (
     <section>
-      <div className="rounded-[28px] bg-white p-4 pt-2 mt-3 shadow-sm">
+      <div className="rounded-[28px] bg-white p-5 pt-2 mt-3 shadow-sm">
         <p className="text-md text-gray-500 font-semibold  opacity-80">
           Рестораны
         </p>

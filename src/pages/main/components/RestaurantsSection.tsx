@@ -33,8 +33,8 @@ export function RestaurantsSection() {
   }
 
   return (
-    <section>
-      <div className="rounded-[28px] bg-white p-5 pr-0 mt-2 shadow-sm">
+    <section id="restaurants">
+      <div className="rounded-[28px] bg-white p-5 pr-0 mt-3 shadow-sm">
         <p className="text-md text-gray-500 font-semibold  opacity-80 -mt-2">
           Рестораны
         </p>
