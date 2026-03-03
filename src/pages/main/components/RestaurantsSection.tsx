@@ -13,15 +13,14 @@ import { Rating } from "@/components/ui/rating";
 export function RestaurantsSection() {
   /* ========= RESTAURANTS ========= */
   const {
-    data: restaurants = [] as Vendor[],
+    data: restaurants = [],
     isLoading,
     error,
-  } = useVendorUserControllerFindFilters(
+  } = useVendorUserControllerFindFilters<Vendor[]>(
     { limit: 10, page: 1 },
     {
       query: {
-        select: (resp: VendorUserControllerFindFiltersQueryResult) =>
-          resp?.data?.data ?? [],
+        select: (resp) => (resp.data?.data ?? []) as Vendor[],
       },
     },
   );
