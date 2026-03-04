@@ -40,8 +40,8 @@ export default function Cameras() {
         <p className="text-md text-gray-500 font-semibold opacity-80">Камеры</p>
         <h2 className="text-2xl font-bold mb-4">Live Wildlife</h2>
 
-        <ScrollArea className="w-full whitespace-nowrap">
-          <div className="flex gap-4">
+        <ScrollArea className="w-full  whitespace-nowrap">
+          <div className="flex gap-4 ">
             {cams.map((cam) => (
               <button
                 key={cam.id}
@@ -59,7 +59,7 @@ export default function Cameras() {
               </button>
             ))}
           </div>
-          <ScrollBar orientation="horizontal" />
+          <ScrollBar orientation="horizontal" className="hidden" />
         </ScrollArea>
       </div>
 

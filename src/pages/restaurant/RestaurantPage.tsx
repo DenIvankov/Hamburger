@@ -30,7 +30,7 @@ function RestaurantPage() {
   >(vendorId, {});
 
   const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(
-    null
+    null,
   );
 
   useEffect(() => {
@@ -60,14 +60,16 @@ function RestaurantPage() {
       </div>
       <div className="-mt-6  relative  items-center gap-3 rounded-[28px] bg-white z-25 p-4 pr-0 shadow-xl">
         <RestaurantInfo vendorId={vendorId} />
-        <FoodCategories
-          categories={categories?.status === 200 ? categories : null}
-          selectedCategoryId={selectedCategoryId}
-          setSelectedCategoryId={setSelectedCategoryId}
-        />
+        <div className="sticky top-0 bg-transparent backdrop-blur-xl z-20 rounded-bl-xl">
+          <FoodCategories
+            categories={categories?.status === 200 ? categories : null}
+            selectedCategoryId={selectedCategoryId}
+          />
+        </div>
         <Dishes
           categories={categories?.status === 200 ? categories : null}
           selectedCategoryId={selectedCategoryId}
+          setSelectedCategoryId={setSelectedCategoryId}
         />
       </div>
     </div>

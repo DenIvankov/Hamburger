@@ -2,15 +2,14 @@
 import productsIcon from "@/assets/icons/categories/products.webp";
 import adsIcon from "@/assets/icons/categories/ads.webp";
 import cameraIcon from "@/assets/icons/categories/camera.webp";
-import soonIcon from "@/assets/icons/categories/soon.webp";
+
 import { Button } from "@/components/ui/button";
 
 const items = [
-  { id: "restaurants", name: "Рестораны", icon: burgerIcon, size: "w-12 h-12" },
-  { id: "products", name: "Продукты", icon: productsIcon, size: "w-14 h-14" },
-  { id: "ads", name: "Объявления", icon: adsIcon, size: "w-13 h-13" },
-  { id: "cameras", name: "Камеры", icon: cameraIcon, size: "w-10 h-10" },
-  { id: "soon", name: "Скоро", icon: soonIcon, size: "w-14 h-14" },
+  { id: "restaurants", name: "Рестораны", icon: burgerIcon },
+  { id: "products", name: "Продукты", icon: productsIcon },
+  { id: "ads", name: "Объявления", icon: adsIcon },
+  { id: "cameras", name: "Камеры", icon: cameraIcon },
 ];
 
 const scrollToSection = (id: string) => {
@@ -28,32 +27,30 @@ const scrollToSection = (id: string) => {
 
 export function Categories() {
   return (
-    <div className="mt-4">
-      <div className="flex justify-between gap-0">
+    <div className="mt-4 ">
+      <div className="flex gap-3 justify-center">
         {items.map((item) => (
           <Button
             onClick={() => scrollToSection(item.id)}
             variant="ghost"
             key={item.name}
             className="
-              flex flex-col items-center gap-2
+              flex flex-col items-center gap-2 
               h-auto
               px-0 py-3
               min-w-[72px]
+              shrink-0
               rounded-2xl
               transition-all
               hover:bg-muted
               active:scale-95
             "
           >
-            <div className="w-14 h-14 bg-gray-100 rounded-xl flex items-center justify-center overflow-hidden">
+            <div className="w-21 h-21 bg-gray-100 rounded-xl flex items-center justify-center overflow-hidden">
               <img
                 src={item.icon}
                 alt={item.name}
-                className={`
-          ${item.size}
-          object-contain
-        `}
+                className="w-16 h-16 object-contain"
                 loading="lazy"
               />
             </div>

@@ -1,5 +1,5 @@
 import type { Product } from "@/api/generated";
-import { Drawer, DrawerContent } from "@/components/ui/drawer";
+import { Drawer, DrawerContent, DrawerTitle, DrawerDescription } from "@/components/ui/drawer";
 
 import DishImage from "./components/DishImage";
 import DishDetails from "./components/DishDetails";
@@ -18,6 +18,10 @@ function DishDrawer({ product, open, setOpen }: Props) {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerContent className="rounded-t-[28px] max-h-[90vh]">
+        <DrawerTitle className="sr-only">{product.name}</DrawerTitle>
+        <DrawerDescription className="sr-only">
+          Информация о блюде {product.name}
+        </DrawerDescription>
         {/* drag handle */}
         <div className="flex justify-center py-2">
           <div className="w-10 h-1.5 bg-gray-300 rounded-full" />

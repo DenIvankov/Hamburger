@@ -11,7 +11,7 @@ import { SearchBlock } from "./components/SearchBlock";
 import "tailwindcss";
 function MainPage() {
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col pb-[calc(100px+env(safe-area-inset-bottom))]">
+    <div className="min-h-screen bg-gray-100  flex flex-col pb-[calc(100px+env(safe-area-inset-bottom))]">
       {/* HERO */}
       <div className="sticky top-0 z-10">
         <PromoBanner />

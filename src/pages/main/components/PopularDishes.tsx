@@ -13,7 +13,7 @@ function PopularDishes() {
     useProductControllerFindOneAdditionalPerRestaurant();
 
   const products = (data?.data as ProductWithVendor[]) ?? [];
-  console.log(products);
+
   if (isLoading) return <div>Загрузка...</div>;
   if (error) return <div>Ошибка</div>;
   return (
@@ -40,14 +40,14 @@ function PopularDishes() {
               <img
                 src={p?.image?.url ?? "/product.png"}
                 alt={p?.name}
-                className="w-32 h-31 rounded-2xl object-cover shrink-0"
+                className="w-32 h-32 rounded-2xl object-cover shrink-0"
                 onError={(e) => {
                   e.currentTarget.src = "/dish_placeholder.svg";
                 }}
               />
 
               {/* TEXT BLOCK */}
-              <div className="flex flex-col flex-1 ">
+              <div className="flex flex-col flex-1 min-w-0">
                 <h3 className="font-semibold leading-tight">{p?.name}</h3>
 
                 <p className="text-sm text-gray-400">{p?.vendor_name}</p>
