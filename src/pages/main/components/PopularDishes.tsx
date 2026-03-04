@@ -37,14 +37,16 @@ function PopularDishes() {
   `}
             >
               {/* IMAGE */}
-              <img
-                src={p?.image?.url ?? "/product.png"}
-                alt={p?.name}
-                className="w-32 h-32 rounded-2xl object-cover shrink-0"
-                onError={(e) => {
-                  e.currentTarget.src = "/dish_placeholder.svg";
-                }}
-              />
+              <div className="w-32 h-32">
+                <img
+                  src={p?.image?.url ?? "/product.png"}
+                  alt={p?.name}
+                  className="w-full h-32 rounded-2xl object-cover shrink-0"
+                  onError={(e) => {
+                    e.currentTarget.src = "/dish_placeholder.svg";
+                  }}
+                />
+              </div>
 
               {/* TEXT BLOCK */}
               <div className="flex flex-col flex-1 min-w-0">

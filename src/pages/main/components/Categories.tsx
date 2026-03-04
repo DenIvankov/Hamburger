@@ -28,7 +28,7 @@ const scrollToSection = (id: string) => {
 export function Categories() {
   return (
     <div className="mt-4 ">
-      <div className="flex gap-3 justify-center">
+      <div className="grid grid-cols-4 gap-3">
         {items.map((item) => (
           <Button
             onClick={() => scrollToSection(item.id)}
@@ -38,15 +38,15 @@ export function Categories() {
               flex flex-col items-center gap-2 
               h-auto
               px-0 py-3
-              min-w-[72px]
-              shrink-0
+              
+              
               rounded-2xl
               transition-all
               hover:bg-muted
               active:scale-95
             "
           >
-            <div className="w-21 h-21 bg-gray-100 rounded-xl flex items-center justify-center overflow-hidden">
+            <div className="w-20 h-20 bg-gray-100 rounded-xl flex items-center justify-center overflow-hidden">
               <img
                 src={item.icon}
                 alt={item.name}

@@ -18,7 +18,7 @@ function DishCard({ product, onOpen }: DishCardProps) {
         <img
           src={imageUrl}
           alt={product.name}
-          className="w-full h-[195px] object-cover"
+          className="w-full h-full object-cover"
         />
 
         {/* кнопка + */}
