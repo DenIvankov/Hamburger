@@ -8,8 +8,10 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import { Rating } from "@/components/ui/rating";
+import { useNavigate } from "react-router";
 
 export function RestaurantsSection() {
+  const navigate = useNavigate();
   /* ========= RESTAURANTS ========= */
   const {
     data: restaurants = [],
@@ -50,6 +52,7 @@ export function RestaurantsSection() {
           <CarouselContent className="-ml-2 pl-5 ">
             {restaurants.map((r) => (
               <CarouselItem
+                onClick={() => navigate(`restaurant/${r.id}`)}
                 key={r.id}
                 className="pl-2 basis-[93.6%] sm:basis-[60%]"
               >
