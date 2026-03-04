@@ -1,5 +1,4 @@
 ﻿import "./App.css";
-import DishDetails from "./pages/dishe/DishDetails";
 import MainPage from "./pages/main/MainPage";
 import RestaurantPage from "./pages/restaurant/RestaurantPage";
 import { BrowserRouter, Route, Routes } from "react-router";

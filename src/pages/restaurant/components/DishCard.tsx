@@ -1,19 +1,19 @@
 import { type Product } from "@/api/generated";
+import DishDrawer from "@/pages/disheDrower/DishDrawer";
 import { IconPlus } from "@tabler/icons-react";
-import { useNavigate } from "react-router";
+import { useState } from "react";
 
 type DishCardProps = {
   product: Product;
 };
 
 function DishCard({ product }: DishCardProps) {
-  const navigate = useNavigate();
   const imageUrl = product.image?.url || "https://placehold.co/600x400";
   const price = product.listings?.[0]?.price ?? 0;
   const weight = `${product.weight}${product.weight_unit === 1 ? " г" : ""}`;
-
+  const [open, setOpen] = useState(false);
   return (
-    <div className="w-full" onClick={() => navigate("/dishe/:id")}>
+    <div className="w-full" onClick={() => setOpen(true)}>
       {/* картинка */}
       <div className="relative rounded-[28px] overflow-hidden">
         <img
@@ -34,6 +34,7 @@ function DishCard({ product }: DishCardProps) {
         <p className="text-md leading-tight">{product.name}</p>
         <p className="text-md text-gray-500 ">{`${weight} г`}</p>
       </div>
+      <DishDrawer product={product} open={open} setOpen={setOpen} />
     </div>
   );
 }
