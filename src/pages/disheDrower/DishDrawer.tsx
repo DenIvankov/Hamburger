@@ -1,5 +1,10 @@
 import type { Product } from "@/api/generated";
-import { Drawer, DrawerContent, DrawerTitle, DrawerDescription } from "@/components/ui/drawer";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerTitle,
+  DrawerDescription,
+} from "@/components/ui/drawer";
 
 import DishImage from "./components/DishImage";
 import DishDetails from "./components/DishDetails";
@@ -11,9 +16,10 @@ type Props = {
   product: Product;
   open: boolean;
   setOpen: (v: boolean) => void;
+  categoryName: string;
 };
 
-function DishDrawer({ product, open, setOpen }: Props) {
+function DishDrawer({ categoryName, product, open, setOpen }: Props) {
   const [selectedExtras, setSelectedExtras] = useState<string[]>([]);
   return (
     <Drawer open={open} onOpenChange={setOpen}>
@@ -33,6 +39,7 @@ function DishDrawer({ product, open, setOpen }: Props) {
           <div className="px-4">
             <DishDetails product={product} />
             <DishExtras
+              categoryName={categoryName}
               selected={selectedExtras}
               setSelected={setSelectedExtras}
             />

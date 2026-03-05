@@ -139,7 +139,11 @@ export function PromoBanner() {
   }
 
   if (banners.length === 0) {
-    return null;
+    return (
+      <div className="relative w-full h-[70vh] max-h-[460px] min-h-[360px] overflow-hidden">
+        <BannerFallback />
+      </div>
+    );
   }
 
   /* ================= RENDER ================= */

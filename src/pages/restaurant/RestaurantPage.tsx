@@ -40,7 +40,6 @@ function RestaurantPage() {
       setSelectedCategoryId(categoryList[0].id);
     }
   }, [categories]);
-
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading restaurant</div>;
 

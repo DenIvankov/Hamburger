@@ -18,7 +18,7 @@ export default function NavigationBar() {
   const [active, setActive] = useState("home");
 
   return (
-    <div className="fixed left-0 right-0 bottom-[calc(16px+env(safe-area-inset-bottom))]  flex justify-center z-50">
+    <div className="fixed left-0 right-0 bottom-[calc(6px+env(safe-area-inset-bottom))]  flex justify-center z-50">
       <div className="relative bg-white shadow-lg rounded-full px-1 py-1   flex gap-0 items-center">
         {tabs.map((tab) => {
           const Icon = tab.icon;

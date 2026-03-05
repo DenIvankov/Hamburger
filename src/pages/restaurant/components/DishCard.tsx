@@ -3,6 +3,7 @@ import { IconPlus } from "@tabler/icons-react";
 
 type DishCardProps = {
   product: Product;
+  categoryName: string;
   onOpen: (product: Product) => void;
 };
 

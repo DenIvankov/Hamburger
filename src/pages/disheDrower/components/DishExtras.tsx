@@ -7,6 +7,7 @@ type Extra = {
 };
 
 type Props = {
+  categoryName: string;
   selected: string[];
   setSelected: (ids: string[]) => void;
 };

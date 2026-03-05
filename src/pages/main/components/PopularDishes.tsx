@@ -2,13 +2,17 @@ import {
   useProductControllerFindOneAdditionalPerRestaurant,
   type Product,
 } from "@/api/generated";
+import DishDrawer from "@/pages/disheDrower/DishDrawer";
 import { IconChevronRight } from "@tabler/icons-react";
+import { useState } from "react";
 
 interface ProductWithVendor extends Product {
   vendor_name: string;
 }
 
 function PopularDishes() {
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [open, setOpen] = useState(false);
   const { data, isLoading, error } =
     useProductControllerFindOneAdditionalPerRestaurant();
 
@@ -35,6 +39,11 @@ function PopularDishes() {
               className={`flex items-start gap-4 p-0 rounded-2xl cursor-pointer transition
    hover:bg-gray-50 shadow-sm
   `}
+              onClick={() => {
+                setSelectedProduct(p);
+                setOpen(true);
+                console.log(p);
+              }}
             >
               {/* IMAGE */}
               <div className="w-32 h-32">
@@ -75,6 +84,14 @@ function PopularDishes() {
             </div>
           ))}
         </div>
+        {selectedProduct && (
+          <DishDrawer
+            product={selectedProduct}
+            open={open}
+            setOpen={setOpen}
+            categoryName={""}
+          />
+        )}
       </div>
     </section>
   );

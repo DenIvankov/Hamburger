@@ -20,8 +20,11 @@ function Dishes({
 
   setSelectedCategoryId,
 }: DishesProps) {
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [open, setOpen] = useState(false);
+  const [selectedDish, setSelectedDish] = useState<{
+    product: Product;
+    categoryName: string;
+  } | null>(null);
 
   const categoryList = categories?.data?.data ?? [];
 
@@ -69,8 +72,12 @@ function Dishes({
               <DishCard
                 key={product.id}
                 product={product}
+                categoryName={category.name}
                 onOpen={(product) => {
-                  setSelectedProduct(product);
+                  setSelectedDish({
+                    product,
+                    categoryName: category.name,
+                  });
                   setOpen(true);
                 }}
               />
@@ -78,8 +85,13 @@ function Dishes({
           </div>
         </div>
       ))}
-      {selectedProduct && (
-        <DishDrawer product={selectedProduct} open={open} setOpen={setOpen} />
+      {selectedDish && (
+        <DishDrawer
+          product={selectedDish.product}
+          categoryName={selectedDish.categoryName}
+          open={open}
+          setOpen={setOpen}
+        />
       )}
     </div>
   );
