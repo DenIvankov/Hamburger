@@ -11,7 +11,8 @@ axiosInstance.interceptors.request.use((config) => {
     // добавляем token ТОЛЬКО для защищённых API
     const needAuth =
         config.url?.includes("/dispatcher") ||
-        config.url?.includes("/customer")
+        config.url?.includes("/customer") ||
+        config.url?.includes("/user")
 
     if (token && needAuth) {
         config.headers = config.headers || {}

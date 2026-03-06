@@ -30,7 +30,6 @@ optgroup,
 select,
 textarea {
   font: inherit;
-  color: inherit;
   margin: 0;
 }
 button,
@@ -57,8 +56,6 @@ ol[role="list"] {
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -105,7 +102,9 @@ ol[role="list"] {
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgb(255 255 255 / 0.35);
 }
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+@supports not (
+  (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
+) {
   .glass-header {
     background: rgba(255, 255, 255, 0.95);
   }
