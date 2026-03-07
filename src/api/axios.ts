@@ -4,7 +4,7 @@ import { hamburgerStore } from "../app/hamburgerStore"
 export const axiosInstance = axios.create({
     baseURL: "https://delivery-app-api.sakhdev.ru/"
 })
-
+const { logout } = hamburgerStore()
 axiosInstance.interceptors.request.use((config) => {
     const token = hamburgerStore.getState().accessToken
 
@@ -26,6 +26,7 @@ axiosInstance.interceptors.response.use(
     (error) => {
         if (error.response?.status === 401) {
             // если сервер вернул 401 — разлогиниваем пользователя
+            logout()
             console.log("Логаут")
             // authStore.getState().logout()
         }
