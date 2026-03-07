@@ -52,7 +52,7 @@ export function RestaurantsSection() {
           <CarouselContent className="-ml-2 pl-5 ">
             {restaurants.map((r) => (
               <CarouselItem
-                onClick={() => navigate(`restaurant/${r.id}`)}
+                onClick={() => navigate(`/restaurant/${r.id}`)}
                 key={r.id}
                 className="pl-2 basis-[93.6%] sm:basis-[60%]"
               >

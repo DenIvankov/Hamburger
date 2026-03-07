@@ -1,4 +1,5 @@
 ﻿import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useNavigate } from "react-router";
 import {
   useAdsCustomerControllerGetHeroBanners,
   type AdsHeroBanner,
@@ -37,6 +38,7 @@ const BannerFallback = () => (
 /* ================= COMPONENT ================= */
 
 export function PromoBanner() {
+  const navigate = useNavigate();
   const { data, isLoading } = useAdsCustomerControllerGetHeroBanners();
 
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
@@ -258,7 +260,10 @@ export function PromoBanner() {
                           />
                         </button>
 
-                        <button className="grid h-10 w-10 place-items-center rounded-full bg-white/95 shadow-md border border-white/80 active:scale-95 transition">
+                        <button
+                          onClick={() => navigate("/profile")}
+                          className="grid h-10 w-10 place-items-center rounded-full bg-white/95 shadow-md border border-white/80 active:scale-95 transition"
+                        >
                           <IconUser
                             size={18}
                             stroke={1.6}

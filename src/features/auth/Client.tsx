@@ -8,7 +8,7 @@ export function Client() {
   const [step, setStep] = useState<"phone" | "code">("phone");
 
   return (
-    <div className="flex justify-center mt-20">
+    <div className="fixed inset-0 flex items-center justify-center">
       {step === "phone" && (
         <PhoneForm
           onSuccess={() => {
