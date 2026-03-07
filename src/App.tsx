@@ -1,28 +1,28 @@
-﻿import "./App.css";
-import { Client } from "./features/auth/Client";
-import RestaurantPage from "./pages/restaurant/RestaurantPage";
-import { BrowserRouter, Route, Routes } from "react-router";
+import "./App.css";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 
-import ProtectedRoute from "./routes/ProtectedRoute";
+import { Client } from "./features/auth/Client";
 import MainPage from "./pages/main/MainPage";
-import AuthRoute from "./routes/AuthRoute";
 import ProfilePage from "./pages/profile/ProfilePage";
+import RestaurantPage from "./pages/restaurant/RestaurantPage";
+import AuthRoute from "./routes/AuthRoute";
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Маршруты для неавторизованных или с неподтверждённым токеном */}
+        <Route path="/" element={<Navigate to="/main" replace />} />
+
         <Route element={<AuthRoute />}>
-          <Route path="/" element={<Client />} />
+          <Route path="/auth" element={<Client />} />
         </Route>
 
-        {/* Защищённые маршруты — только для авторизованных с подтверждённым токеном */}
         <Route element={<ProtectedRoute />}>
           <Route path="/profile" element={<ProfilePage />} />
         </Route>
-        <Route path="/main" element={<MainPage />} />
 
+        <Route path="/main" element={<MainPage />} />
         <Route path="/restaurant/:id" element={<RestaurantPage />} />
       </Routes>
     </BrowserRouter>
