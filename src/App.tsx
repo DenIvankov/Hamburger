@@ -19,9 +19,9 @@ function App() {
 
         {/* Защищённые маршруты — только для авторизованных с подтверждённым токеном */}
         <Route element={<ProtectedRoute />}>
-          <Route path="/main" element={<MainPage />} />
           <Route path="/profile" element={<ProfilePage />} />
         </Route>
+        <Route path="/main" element={<MainPage />} />
 
         <Route path="/restaurant/:id" element={<RestaurantPage />} />
       </Routes>
